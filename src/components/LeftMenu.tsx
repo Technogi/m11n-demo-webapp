@@ -14,12 +14,15 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Analytics, Home } from "@mui/icons-material";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 
 const pages = ["Products", "Pricing", "Blog"];
 
 const LeftMenu = () => {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -34,20 +37,27 @@ const LeftMenu = () => {
   return (
     <Box sx={{ overflow: "auto" }}>
       <List>
-        {["Home", "Sales", "Forecast"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Home /> : <Analytics />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding onClick={() => router.push("/")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding onClick={() => router.push("/sales")}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Analytics />
+            </ListItemIcon>
+            <ListItemText primary="Sales" />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["Service B", "Service C", "Other Service"].map((text, index) => (
+        {["Service B", "Service C"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>

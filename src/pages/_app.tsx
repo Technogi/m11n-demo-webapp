@@ -29,10 +29,10 @@ export default function MyApp(props: MyAppProps) {
         <CssBaseline />
         <ResponsiveAppBar />
         <Grid container>
-          <Grid xs={2}>
+          <Grid xs={2} item>
             <LeftMenu />
           </Grid>
-          <Grid xs={10} color={"gray"}>
+          <Grid xs={10} item color={"gray"}>
             <main
               style={{
                 marginTop: "1em",
