@@ -148,26 +148,6 @@ const ForecastIn: FC<{ productId: number }> = ({ productId }) => {
 
   if (isLoading || isIdle) return <Loading />;
 
-  if (isError) {
-    return (
-      <Box
-        sx={{
-          minHeight: "calc(100vh - 10em)",
-          backgroundColor: grey[50],
-          padding: "2em",
-          overflow: "scroll",
-        }}
-      >
-        <Typography color="red" fontSize={24}>
-          ERROR:
-        </Typography>
-        <Typography fontFamily="monospace" color="red" fontSize={16}>
-          <pre>{JSON.stringify(error, null, 4)}</pre>
-        </Typography>
-      </Box>
-    );
-  }
-
   return (
     <Grid container spacing={2} padding={5} height="100%">
       <Grid item xs={2}>
@@ -210,41 +190,63 @@ const ForecastIn: FC<{ productId: number }> = ({ productId }) => {
             Loading new information
           </Typography>
         </Box>
-        <ResponsiveContainer>
-          <LineChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
+        {isError ? (
+          <Box
+            sx={{
+              minHeight: "calc(100vh - 10em)",
+              backgroundColor: grey[50],
+              padding: "2em",
+              overflow: "scroll",
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis tickFormatter={(val) => currency.format(val / 1000) + "K"} />
-            <Tooltip
-              formatter={(val) => currency.format((val as number) / 1000) + "K"}
-            />
-            <Legend
-              formatter={(val) => {
-                if (val === "p10") return "10th Percentile";
-                if (val === "p90") return "90th Percentile";
-                return "50th Percentile";
+            <Typography color="red" fontSize={24}>
+              ERROR:
+            </Typography>
+            <Typography fontFamily="monospace" color="red" fontSize={16}>
+              <pre>{JSON.stringify(error, null, 4)}</pre>
+            </Typography>
+          </Box>
+        ) : (
+          <ResponsiveContainer>
+            <LineChart
+              width={500}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
               }}
-            />
-            <Line
-              type="monotone"
-              dataKey="p50"
-              stroke="#888"
-              activeDot={{ r: 8 }}
-            />
-            <Line type="monotone" dataKey="p10" stroke="orange" />
-            <Line type="monotone" dataKey="p90" stroke="green" />
-          </LineChart>
-        </ResponsiveContainer>
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis
+                tickFormatter={(val) => currency.format(val / 1000) + "K"}
+              />
+              <Tooltip
+                formatter={(val) =>
+                  currency.format((val as number) / 1000) + "K"
+                }
+              />
+              <Legend
+                formatter={(val) => {
+                  if (val === "p10") return "10th Percentile";
+                  if (val === "p90") return "90th Percentile";
+                  return "50th Percentile";
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="p50"
+                stroke="#888"
+                activeDot={{ r: 8 }}
+              />
+              <Line type="monotone" dataKey="p10" stroke="orange" />
+              <Line type="monotone" dataKey="p90" stroke="green" />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
       </Grid>
     </Grid>
   );

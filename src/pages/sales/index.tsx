@@ -220,4 +220,9 @@ const SalesPage: NextPage = () => {
   );
 };
 
-export default SalesPage;
+const PageWithLayout: NextPage = () => (
+  <PrivateLayout>
+    <SalesPage />
+  </PrivateLayout>
+);
+export default PageWithLayout;
