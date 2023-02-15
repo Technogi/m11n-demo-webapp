@@ -1,8 +1,15 @@
 import { NextPage } from "next";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, Button, Container, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
-import { Replay } from "@mui/icons-material";
+import { Analytics, Replay } from "@mui/icons-material";
 import useSWR from "swr";
 import { grey } from "@mui/material/colors";
 import Head from "next/head";
@@ -63,6 +70,33 @@ const SalesPage: NextPage = () => {
           >
             {value}
           </Button>
+        );
+      },
+    },
+    {
+      field: "forecast",
+      headerName: "Forecast",
+      width: 80,
+      align: "center",
+      headerAlign: "center",
+      valueGetter(params) {
+        return params.row.name;
+      },
+      renderCell({ value }) {
+        return (
+          <>
+            <Tooltip title={`Click to see "${value}" sales forecast`}>
+              <IconButton
+                color="primary"
+                onClick={() => {
+                  setShowForecast(true);
+                  setForecastId(value);
+                }}
+              >
+                <Analytics />
+              </IconButton>
+            </Tooltip>
+          </>
         );
       },
     },
@@ -138,50 +172,51 @@ const SalesPage: NextPage = () => {
     }, 0) || 1;
 
   return (
-    <PrivateLayout>
-      <>
-        <Head>
-          <title>Sales Stats | Technogi M11N</title>
-        </Head>
-        <Container style={{ height: "calc(100vh - 12em)" }}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={1}
-            padding={1}
-            marginBottom={2}
-          >
-            <Typography variant="h4" component="h1">
-              Sales Stats
-            </Typography>
-            <IconButton onClick={() => mutate()}>
-              <Replay color="primary" fontSize="large" />
-            </IconButton>
-          </Box>
-          <DataGrid
-            rows={
-              data?.items
-                ?.map(({ price, sales, ...props }) => ({
-                  ...props,
-                  price,
-                  sales,
-                  performance: Math.round((sales / maxSales) * 100) / 100,
-                  total: sales * price,
-                }))
-                ?.sort((a, b) => b.performance - a.performance) || []
-            }
-            columns={columns}
-          />
-          <ForecastModal
-            open={showForecast}
-            onClose={() => setShowForecast(false)}
-            productId={forecastId}
-            productName={data?.items?.find(({ id }) => id === forecastId)?.name}
-          />
-        </Container>
-      </>
-    </PrivateLayout>
+    <>
+      <Head>
+        <title>Sales Stats | Technogi M11N</title>
+      </Head>
+      <Container style={{ height: "calc(100vh - 12em)" }}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          borderBottom={1}
+          padding={1}
+          marginBottom={2}
+        >
+          <Typography variant="h4" component="h1">
+            Sales Stats
+          </Typography>
+          <IconButton onClick={() => mutate()}>
+            <Replay color="primary" fontSize="large" />
+          </IconButton>
+        </Box>
+        <DataGrid
+          rows={
+            data?.items
+              ?.map(({ price, sales, ...props }) => ({
+                ...props,
+                price,
+                sales,
+                performance: Math.round((sales / maxSales) * 100) / 100,
+                total: sales * price,
+              }))
+              ?.sort((a, b) => b.performance - a.performance) || []
+          }
+          columns={columns}
+        />
+        <ForecastModal
+          open={showForecast}
+          onClose={() => {
+            setShowForecast(false);
+            setForecastId(undefined);
+          }}
+          productId={forecastId}
+          productName={data?.items?.find(({ id }) => id === forecastId)?.name}
+        />
+      </Container>
+    </>
   );
 };
 
