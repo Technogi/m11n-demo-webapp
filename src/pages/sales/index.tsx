@@ -165,6 +165,7 @@ const SalesPage: NextPage = () => {
       field: "performance",
       headerName: "Performance",
       width: 200,
+      align: "center",
       headerAlign: "center",
       renderCell({ value }) {
         let color: string = "#fcc735";
