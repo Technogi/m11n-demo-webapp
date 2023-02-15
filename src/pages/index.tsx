@@ -4,8 +4,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { Analytics } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <Container maxWidth="lg">
       <Box
@@ -32,9 +35,10 @@ export default function Home() {
           />{" "}
           POStats
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom color={"GrayText"}>
-          Your POS reaching the sky!
-        </Typography>
+        <br />
+        <Link href={"/sales"} passHref>
+          <Button variant="contained">Go to POS Sales Stats</Button>
+        </Link>
       </Box>
     </Container>
   );
