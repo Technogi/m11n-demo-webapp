@@ -8,15 +8,13 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Analytics";
 import { useRouter } from "next/router";
-import { Person, VerifiedUser } from "@mui/icons-material";
+import { Person } from "@mui/icons-material";
 import Link from "next/link";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { teal } from "@mui/material/colors";
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -84,7 +82,31 @@ function ResponsiveAppBar() {
           >
             POStats
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Typography color={teal[50]} marginRight={4}>
+              |
+            </Typography>
+            <Link href="/" passHref>
+              <UILink
+                color={teal[50]}
+                fontWeight={900}
+                underline="hover"
+                marginRight={4}
+              >
+                Home
+              </UILink>
+            </Link>
+            <Link href="/sales" passHref>
+              <UILink
+                color={teal[50]}
+                fontWeight={900}
+                underline="hover"
+                marginRight={4}
+              >
+                Sales
+              </UILink>
+            </Link>
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

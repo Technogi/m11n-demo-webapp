@@ -5,10 +5,8 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import { Analytics } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useRouter } from "next/router";
 
 export default function Home() {
-  const router = useRouter();
   return (
     <Container maxWidth="lg">
       <Box
@@ -31,14 +29,13 @@ export default function Home() {
         >
           <Analytics
             color="primary"
-            sx={{ fontSize: "3em", marginRight: "1rem" }}
+            sx={{ fontSize: "2.4em", marginRight: "1rem" }}
           />{" "}
           POStats
         </Typography>
-        <br />
-        <Link href={"/sales"} passHref>
-          <Button variant="contained">Go to POS Sales Stats</Button>
-        </Link>
+        <Typography variant="h6" component="h2" gutterBottom color={"GrayText"}>
+          Your POS reaching the sky!
+        </Typography>
       </Box>
     </Container>
   );

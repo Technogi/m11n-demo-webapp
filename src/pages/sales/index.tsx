@@ -1,13 +1,20 @@
+import { NextPage } from "next";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { Button, Dialog, Slide } from "@mui/material";
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Dialog,
+  IconButton,
+  Slide,
+  Typography,
+} from "@mui/material";
 import { forwardRef, useState } from "react";
 import { TransitionProps } from "@mui/material/transitions";
-import { Close } from "@mui/icons-material";
+import { Close, Replay } from "@mui/icons-material";
+import useSWR from "swr";
+import { grey } from "@mui/material/colors";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -62,41 +69,48 @@ const ForecastModal = ({
     </Dialog>
   );
 };
-function mapVal(val: Record<"S" | "N", string>) {
-  return val.N ? parseFloat(val.N) : val.S;
-}
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL || "");
-  const data = (await res.json()) as { total: number; items: any[] };
+const fetcher = (url: string) =>
+  fetch(url, { mode: "cors" }).then((r) => r.json());
 
-  const maxSales = data.items.reduce((acc, { sales }) => {
-    const val = sales;
-    return val > acc ? val : acc;
-  }, 0);
-
-  return {
-    props: {
-      total: data.total,
-      items: data.items
-        .map(({ price, sales, ...props }) => ({
-          ...props,
-          price,
-          sales,
-          performance: Math.round((sales / maxSales) * 100) / 100,
-          total: sales * price,
-        }))
-        .sort((a, b) => b.sales - a.sales),
-    },
-  };
-};
-
-const SalesPage: NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ items }) => {
+const SalesPage: NextPage = () => {
   const [showForecast, setShowForecast] = useState<boolean>(false);
   const [forecastId, setForecastId] = useState<number>();
+  const { data, error, isLoading, isValidating, mutate } = useSWR<{
+    total: number;
+    items: { id: number; price: number; sales: number; name: string }[];
+  }>(process.env.NEXT_PUBLIC_API_URL, fetcher);
 
+  if (isLoading || isValidating) {
+    return (
+      <Container sx={{ textAlign: "center", paddingTop: "5em" }}>
+        <CircularProgress size={60} />
+        <Typography color="teal" fontSize={20} paddingTop={4}>
+          Loading...
+        </Typography>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          minHeight: "calc(100vh - 10em)",
+          backgroundColor: grey[50],
+          padding: "2em",
+          overflow: "scroll",
+        }}
+      >
+        <Typography color="red" fontSize={24}>
+          ERROR:
+        </Typography>
+        <Typography fontFamily="monospace" color="red" fontSize={16}>
+          <pre>{JSON.stringify(error, null, 4)}</pre>
+        </Typography>
+      </Box>
+    );
+  }
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -182,16 +196,50 @@ const SalesPage: NextPage<
     },
   ];
 
+  const maxSales =
+    data?.items.reduce((acc, { sales }) => {
+      const val = sales;
+      return val > acc ? val : acc;
+    }, 0) || 1;
+
   return (
-    <div style={{ height: "calc(100vh - 7em)", width: "100%" }}>
-      <DataGrid rows={items} columns={columns} />
+    <Container style={{ height: "calc(100vh - 12em)" }}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        borderBottom={1}
+        padding={1}
+        marginBottom={2}
+      >
+        <Typography variant="h4" component="h1">
+          Sales Stats
+        </Typography>
+        <IconButton onClick={() => mutate()}>
+          <Replay color="primary" fontSize="large" />
+        </IconButton>
+      </Box>
+      <DataGrid
+        rows={
+          data?.items
+            ?.map(({ price, sales, ...props }) => ({
+              ...props,
+              price,
+              sales,
+              performance: Math.round((sales / maxSales) * 100) / 100,
+              total: sales * price,
+            }))
+            ?.sort((a, b) => b.performance - a.performance) || []
+        }
+        columns={columns}
+      />
       <ForecastModal
         open={showForecast}
         onClose={() => setShowForecast(false)}
         productId={forecastId}
-        productName={items?.find(({ id }) => id === forecastId)?.name}
+        productName={data?.items?.find(({ id }) => id === forecastId)?.name}
       />
-    </div>
+    </Container>
   );
 };
 
