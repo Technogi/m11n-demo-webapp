@@ -1,75 +1,15 @@
 import { NextPage } from "next";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Dialog,
-  IconButton,
-  Slide,
-  Typography,
-} from "@mui/material";
-import { forwardRef, useState } from "react";
-import { TransitionProps } from "@mui/material/transitions";
-import { Close, Replay } from "@mui/icons-material";
+import { Box, Button, Container, IconButton, Typography } from "@mui/material";
+import { useState } from "react";
+import { Replay } from "@mui/icons-material";
 import useSWR from "swr";
 import { grey } from "@mui/material/colors";
 import Head from "next/head";
-
-const currency = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 2,
-});
-
-type Props = {
-  total: number;
-  items: any[];
-};
-
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-type ForecastModalProps = {
-  open: boolean;
-  onClose: () => void;
-  productId?: number;
-  productName?: string;
-};
-
-const ForecastModal = ({
-  open,
-  onClose,
-  productId,
-  productName,
-}: ForecastModalProps) => {
-  return (
-    <Dialog open={open} fullScreen TransitionComponent={Transition}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1em",
-        }}
-      >
-        <div>{productName} Forecast</div>
-        <div>
-          <Button onClick={onClose}>
-            <Close />
-          </Button>
-        </div>
-      </div>
-    </Dialog>
-  );
-};
+import Loading from "@/components/Loading";
+import { currency } from "@/utils";
+import ForecastModal from "@/components/sales/ForecastModal";
+import PrivateLayout from "@/components/PrivateLayout";
 
 const fetcher = (url: string) =>
   fetch(url, { mode: "cors" }).then((r) => r.json());
@@ -83,14 +23,7 @@ const SalesPage: NextPage = () => {
   }>(process.env.NEXT_PUBLIC_API_URL, fetcher);
 
   if (isLoading || isValidating) {
-    return (
-      <Container sx={{ textAlign: "center", paddingTop: "5em" }}>
-        <CircularProgress size={60} />
-        <Typography color="teal" fontSize={20} paddingTop={4}>
-          Loading...
-        </Typography>
-      </Container>
-    );
+    return <Loading />;
   }
 
   if (error) {
@@ -205,48 +138,50 @@ const SalesPage: NextPage = () => {
     }, 0) || 1;
 
   return (
-    <>
-      <Head>
-        <title>Sales Stats | Technogi M11N</title>
-      </Head>
-      <Container style={{ height: "calc(100vh - 12em)" }}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          borderBottom={1}
-          padding={1}
-          marginBottom={2}
-        >
-          <Typography variant="h4" component="h1">
-            Sales Stats
-          </Typography>
-          <IconButton onClick={() => mutate()}>
-            <Replay color="primary" fontSize="large" />
-          </IconButton>
-        </Box>
-        <DataGrid
-          rows={
-            data?.items
-              ?.map(({ price, sales, ...props }) => ({
-                ...props,
-                price,
-                sales,
-                performance: Math.round((sales / maxSales) * 100) / 100,
-                total: sales * price,
-              }))
-              ?.sort((a, b) => b.performance - a.performance) || []
-          }
-          columns={columns}
-        />
-        <ForecastModal
-          open={showForecast}
-          onClose={() => setShowForecast(false)}
-          productId={forecastId}
-          productName={data?.items?.find(({ id }) => id === forecastId)?.name}
-        />
-      </Container>
-    </>
+    <PrivateLayout>
+      <>
+        <Head>
+          <title>Sales Stats | Technogi M11N</title>
+        </Head>
+        <Container style={{ height: "calc(100vh - 12em)" }}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={1}
+            padding={1}
+            marginBottom={2}
+          >
+            <Typography variant="h4" component="h1">
+              Sales Stats
+            </Typography>
+            <IconButton onClick={() => mutate()}>
+              <Replay color="primary" fontSize="large" />
+            </IconButton>
+          </Box>
+          <DataGrid
+            rows={
+              data?.items
+                ?.map(({ price, sales, ...props }) => ({
+                  ...props,
+                  price,
+                  sales,
+                  performance: Math.round((sales / maxSales) * 100) / 100,
+                  total: sales * price,
+                }))
+                ?.sort((a, b) => b.performance - a.performance) || []
+            }
+            columns={columns}
+          />
+          <ForecastModal
+            open={showForecast}
+            onClose={() => setShowForecast(false)}
+            productId={forecastId}
+            productName={data?.items?.find(({ id }) => id === forecastId)?.name}
+          />
+        </Container>
+      </>
+    </PrivateLayout>
   );
 };
 

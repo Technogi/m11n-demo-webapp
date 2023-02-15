@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { Person } from "@mui/icons-material";
 import Link from "next/link";
 import { teal } from "@mui/material/colors";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -29,6 +30,8 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const { user } = useAuthenticator((context) => [context.user]);
 
   return (
     <AppBar position="static">
@@ -130,16 +133,24 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <MenuItem>
+                <Typography>{user?.username}</Typography>
+              </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
                 <Link href={"/"} passHref>
                   <UILink>
-                    <Typography textAlign="center">Dashboard</Typography>
+                    <Typography textAlign="center">Home</Typography>
                   </UILink>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Account</Typography>
+                <Link href={"/sales"} passHref>
+                  <UILink>
+                    <Typography textAlign="center">Sales</Typography>
+                  </UILink>
+                </Link>
               </MenuItem>
+
               <MenuItem onClick={handleCloseUserMenu}>
                 <Link href={"/signout"} passHref>
                   <UILink>

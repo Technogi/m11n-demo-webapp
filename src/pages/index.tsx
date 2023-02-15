@@ -6,48 +6,51 @@ import Link from "next/link";
 import { Analytics } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Head from "next/head";
+import PrivateLayout from "@/components/PrivateLayout";
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Sales Stats | Technogi M11N</title>
-      </Head>
-      <Container maxWidth="lg">
-        <Box
-          sx={{
-            my: 4,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            variant="h4"
-            component="h1"
-            gutterBottom
-            style={{
+    <PrivateLayout>
+      <>
+        <Head>
+          <title>Sales Stats | Technogi M11N</title>
+        </Head>
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              my: 4,
               display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Analytics
-              color="primary"
-              sx={{ fontSize: "2.4em", marginRight: "1rem" }}
-            />{" "}
-            POStats
-          </Typography>
-          <Typography
-            variant="h6"
-            component="h2"
-            gutterBottom
-            color={"GrayText"}
-          >
-            Your POS reaching the sky!
-          </Typography>
-        </Box>
-      </Container>
-    </>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Analytics
+                color="primary"
+                sx={{ fontSize: "2.4em", marginRight: "1rem" }}
+              />{" "}
+              POStats
+            </Typography>
+            <Typography
+              variant="h6"
+              component="h2"
+              gutterBottom
+              color={"GrayText"}
+            >
+              Your POS reaching the sky!
+            </Typography>
+          </Box>
+        </Container>
+      </>
+    </PrivateLayout>
   );
 }
