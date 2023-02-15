@@ -15,6 +15,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { Close, Replay } from "@mui/icons-material";
 import useSWR from "swr";
 import { grey } from "@mui/material/colors";
+import Head from "next/head";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -204,43 +205,48 @@ const SalesPage: NextPage = () => {
     }, 0) || 1;
 
   return (
-    <Container style={{ height: "calc(100vh - 12em)" }}>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        borderBottom={1}
-        padding={1}
-        marginBottom={2}
-      >
-        <Typography variant="h4" component="h1">
-          Sales Stats
-        </Typography>
-        <IconButton onClick={() => mutate()}>
-          <Replay color="primary" fontSize="large" />
-        </IconButton>
-      </Box>
-      <DataGrid
-        rows={
-          data?.items
-            ?.map(({ price, sales, ...props }) => ({
-              ...props,
-              price,
-              sales,
-              performance: Math.round((sales / maxSales) * 100) / 100,
-              total: sales * price,
-            }))
-            ?.sort((a, b) => b.performance - a.performance) || []
-        }
-        columns={columns}
-      />
-      <ForecastModal
-        open={showForecast}
-        onClose={() => setShowForecast(false)}
-        productId={forecastId}
-        productName={data?.items?.find(({ id }) => id === forecastId)?.name}
-      />
-    </Container>
+    <>
+      <Head>
+        <title>Sales Stats | Technogi M11N</title>
+      </Head>
+      <Container style={{ height: "calc(100vh - 12em)" }}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          borderBottom={1}
+          padding={1}
+          marginBottom={2}
+        >
+          <Typography variant="h4" component="h1">
+            Sales Stats
+          </Typography>
+          <IconButton onClick={() => mutate()}>
+            <Replay color="primary" fontSize="large" />
+          </IconButton>
+        </Box>
+        <DataGrid
+          rows={
+            data?.items
+              ?.map(({ price, sales, ...props }) => ({
+                ...props,
+                price,
+                sales,
+                performance: Math.round((sales / maxSales) * 100) / 100,
+                total: sales * price,
+              }))
+              ?.sort((a, b) => b.performance - a.performance) || []
+          }
+          columns={columns}
+        />
+        <ForecastModal
+          open={showForecast}
+          onClose={() => setShowForecast(false)}
+          productId={forecastId}
+          productName={data?.items?.find(({ id }) => id === forecastId)?.name}
+        />
+      </Container>
+    </>
   );
 };
 
