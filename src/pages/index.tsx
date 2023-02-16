@@ -84,7 +84,7 @@ export default function HomePage() {
                 endIcon={<OpenInNewIcon />}
                 variant="contained"
               >
-                Open Sample Web App
+                Demo Web App
               </Button>
               <Button
                 LinkComponent={NextLink}
@@ -93,7 +93,7 @@ export default function HomePage() {
                 variant="outlined"
                 color="secondary"
               >
-                Sample Web App Source Code
+                Demo Source Code
               </Button>
               <Button
                 LinkComponent={NextLink}
