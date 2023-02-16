@@ -73,7 +73,7 @@ export default function HomePage() {
             </Typography>
             <Stack
               sx={{ pt: 4 }}
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: "column", md: "row" }}
               spacing={{ xs: 1, sm: 2, md: 4 }}
               justifyContent="center"
             >
