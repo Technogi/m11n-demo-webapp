@@ -1,15 +1,10 @@
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  Link as UILink,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { NextPage } from "next";
 import Head from "next/head";
 import { grey, teal } from "@mui/material/colors";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import SimpleHeader from "@/components/SimpleHeader";
 
 const InfoPage: NextPage = () => {
   return (
@@ -37,29 +32,7 @@ const InfoPage: NextPage = () => {
           content="https://m11n-web-demo.io.technogi.com.mx/technogi.png"
         />
       </Head>
-      <header style={{ backgroundColor: teal[600], padding: "0.5em" }}>
-        <Container
-          style={{
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography
-            component="h1"
-            variant="h4"
-            align="center"
-            color={teal[50]}
-            fontWeight={900}
-          >
-            <Link href="/" passHref legacyBehavior>
-              <UILink color="inherit">M11N</UILink>
-            </Link>
-          </Typography>
-          <img alt="technogi" src="/technogi-teal-light.png" width={160} />
-        </Container>
-      </header>
+      <SimpleHeader />
       <main>
         {/* Hero unit */}
         <Box
@@ -77,6 +50,10 @@ const InfoPage: NextPage = () => {
               borderBottom={1}
             >
               Architecture
+            </Typography>
+            <Typography>
+              The following diagram show how to implement M11n strategy using
+              AWS as the cloud provider.
             </Typography>
             <img
               alt="m11n diagram"

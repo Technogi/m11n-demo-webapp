@@ -57,7 +57,7 @@ export default function HomePage() {
               fontWeight={900}
               gutterBottom
             >
-              M11N
+              {title}
             </Typography>
             <Typography
               fontSize={20}
@@ -88,8 +88,7 @@ export default function HomePage() {
               </Button>
               <Button
                 LinkComponent={NextLink}
-                href="https://github.com/Technogi/m11n-demo-hermes"
-                target="_blank"
+                href="/source"
                 endIcon={<GitHubIcon />}
                 variant="outlined"
                 color="secondary"
