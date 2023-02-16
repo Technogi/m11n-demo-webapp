@@ -2,7 +2,7 @@ import { Box, Link, Typography } from "@mui/material";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="primary.contrastText" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://technogi.com.mx/">
         Technogi
@@ -14,17 +14,17 @@ function Copyright() {
 }
 export default function Footer() {
   return (
-    <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-      <Typography variant="h6" align="center" gutterBottom>
-        Footer
-      </Typography>
+    <Box
+      sx={{ bgcolor: "primary.main", p: 3, color: "primary.contrastText" }}
+      component="footer"
+    >
       <Typography
         variant="subtitle1"
         align="center"
-        color="text.secondary"
+        color="primary.contrastText"
         component="p"
       >
-        Something here to give the footer a purpose!
+        Keeping IT Simple since 2012
       </Typography>
       <Copyright />
     </Box>

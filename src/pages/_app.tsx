@@ -1,20 +1,14 @@
 import * as React from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { ThemeProvider as AmplifyThemeProvider } from "@aws-amplify/ui-react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
-import ResponsiveAppBar from "@/components/ResponsiveAppBar";
-import LeftMenu from "@/components/LeftMenu";
-import { Container, Grid, createTheme } from "@mui/material";
 import { Amplify } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "../styles/globals.css";
-import { teal } from "@mui/material/colors";
 
 Amplify.configure({
   Auth: {
@@ -40,11 +34,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const theme = createTheme({
-    palette: {
-      primary: teal,
-    },
-  });
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
