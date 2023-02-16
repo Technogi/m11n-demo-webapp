@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/app"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -89,7 +89,7 @@ function ResponsiveAppBar() {
             <Typography color={teal[50]} marginRight={4}>
               |
             </Typography>
-            <Link href="/" passHref>
+            <Link href="/app" passHref>
               <UILink
                 color={teal[50]}
                 fontWeight={900}
@@ -137,7 +137,7 @@ function ResponsiveAppBar() {
                 <Typography>{user?.username}</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Link href={"/"} passHref>
+                <Link href={"/app"} passHref>
                   <UILink>
                     <Typography textAlign="center">Home</Typography>
                   </UILink>

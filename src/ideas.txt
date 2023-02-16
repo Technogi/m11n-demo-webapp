@@ -1,0 +1,32 @@
+<Typography
+              variant="h5"
+              align="center"
+              color="whitesmoke"
+              paragraph
+            >
+              By taking a low-impact approach to migration and modernization,
+              M11N minimizes disruption to your business and maximizes your
+              return on investment.
+              <br></br>
+              Technogi's focus on Domain Driven Development and event sourcing
+              means that M11N is highly adaptable and customizable, allowing you
+              to tailor the strategy to your unique business needs. Whether you
+              need to migrate to the cloud, modernize your existing software, or
+              build new cloud-native applications, M11N can help you achieve
+              your goals quickly and efficiently.
+              <br></br>
+              With M11N, you can confidently transform your business and stay
+              ahead of the competition, knowing that you have a reliable,
+              industry-proven strategy for cloud migration and modernization.
+              And with Technogi's expert guidance and support, you can be sure
+              that your implementation will be seamless, painless, and
+              successful.
+            </Typography>
+
+            M11N is a cloud migration and modernization strategy that leverages the power of Domain Driven Development (DDD) and Event Sourcing to deliver a fast, simple, and highly efficient approach to upgrading your legacy systems and embracing the latest cloud technologies.
+
+Domain Driven Development is an approach to software design that focuses on understanding and modeling the business domain, or the real-world problem that the software is meant to solve. By placing the business domain at the center of the software design process, DDD can help ensure that the software is more closely aligned with the needs of the business and more effective in solving the problem at hand.
+
+Event Sourcing is a design pattern that captures all changes to an application's state as a sequence of events. Instead of storing the current state of the application in a database, as is typically done in traditional architectures, Event Sourcing captures a complete history of all changes to the state of the application. This approach can provide numerous benefits, including better scalability, improved fault tolerance, and a more complete audit trail.
+
+By leveraging DDD and Event Sourcing, M11N can help you design and implement cloud-native applications that are highly scalable, fault-tolerant, and closely aligned with the needs of your business. With a focus on delivering a fast, simple, and highly efficient approach to cloud migration and modernization, M11N can help you upgrade your legacy systems and embrace the latest cloud technologies with confidence and ease.

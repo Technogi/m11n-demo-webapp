@@ -15,9 +15,9 @@ const SignOutPage = () => {
 
   useEffect(() => {
     signOut();
-    if (authStatus !== "authenticated") router.push("/");
+    if (authStatus !== "authenticated") router.push("/app");
     return Hub.listen("auth", (data) => {
-      if (data?.payload?.event === "signOut") router.push("/");
+      if (data?.payload?.event === "signOut") router.push("/app");
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
