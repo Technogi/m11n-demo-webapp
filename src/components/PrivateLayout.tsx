@@ -2,6 +2,8 @@ import { FC, ReactNode } from "react";
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Head from "next/head";
 import { withAuthenticator } from "@aws-amplify/ui-react";
+import { Analytics } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -13,7 +15,7 @@ const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 export default withAuthenticator(PrivateLayout, {
-  variation: "modal",
+  variation: "default",
   components: {
     Footer() {
       return (
@@ -43,8 +45,33 @@ export default withAuthenticator(PrivateLayout, {
       return (
         <>
           <Head>
-            <title>Technogi M11N Demo</title>
+            <title>M11n POStats | Technogi </title>
           </Head>
+          <div>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
+              sx={{
+                marginTop: {
+                  xs: 3,
+                  sm: 6,
+                  md: 8,
+                  lg: 8,
+                },
+                marginBottom: "1em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Analytics
+                color="primary"
+                sx={{ fontSize: "2.4em", marginRight: "1rem" }}
+              />{" "}
+              POStats
+            </Typography>
+          </div>
         </>
       );
     },

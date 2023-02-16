@@ -1,3 +1,12 @@
 :root,
 [data-amplify-theme] {
+  ---amplify-colors-background-primary: var(--amplify-colors-neutral-90);
+  ---amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
+  ---amplify-colors-brand-primary-10: #004d40;
+  --amplify-colors-brand-primary-80: #009688;
+  --amplify-colors-brand-primary-90: #00897b;
+  --amplify-colors-brand-primary-100: #00695c;
+  --amplify-components-tabs-item-hover-color: #4db6ac;
+  --amplify-components-authenticator-router-border-color: hsl(0deg 0% 83%);
+  --amplify-components-authenticator-router-border-width: 1px;
 }
