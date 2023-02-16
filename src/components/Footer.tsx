@@ -1,4 +1,7 @@
 import { Box, Link, Typography } from "@mui/material";
+import config from "next/config";
+
+const { publicRuntimeConfig } = config() || {};
 
 function Copyright() {
   return (
@@ -27,6 +30,14 @@ export default function Footer() {
         Keeping IT Simple since 2012
       </Typography>
       <Copyright />
+      <Typography
+        sx={{
+          textAlign: "right",
+          fontSize: 12,
+        }}
+      >
+        v{publicRuntimeConfig?.version}
+      </Typography>
     </Box>
   );
 }

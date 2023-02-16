@@ -4,6 +4,7 @@ import Head from "next/head";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Analytics } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import Footer from "./Footer";
 
 const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -39,6 +40,8 @@ export default withAuthenticator(PrivateLayout, {
           >
             This application is optimized to run on Desktops
           </div>
+          <br />
+          <Footer />
         </>
       );
     },
