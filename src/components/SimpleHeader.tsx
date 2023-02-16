@@ -1,10 +1,11 @@
+import theme from "@/theme";
 import { Container, Typography, Link as UILink } from "@mui/material";
 import { teal } from "@mui/material/colors";
 import Link from "next/link";
 import { FC } from "react";
 
 const SimpleHeader: FC = () => (
-  <header style={{ backgroundColor: teal[600], padding: "0.5em" }}>
+  <header style={{ backgroundColor: teal[500], padding: "0.5em" }}>
     <Container
       style={{
         textAlign: "center",
