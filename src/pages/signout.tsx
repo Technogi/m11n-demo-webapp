@@ -13,12 +13,20 @@ const SignOutPage = () => {
   const { signOut, authStatus } = useAuthenticator((context) => [context.user]);
   const router = useRouter();
 
+  const redirectToHome = () => {
+    setTimeout(() => {
+      router.push("/app");
+    }, 1000);
+  };
+
   useEffect(() => {
     signOut();
-    if (authStatus !== "authenticated") router.push("/app");
+
+    if (authStatus !== "authenticated") redirectToHome();
     return Hub.listen("auth", (data) => {
-      if (data?.payload?.event === "signOut") router.push("/app");
+      if (data?.payload?.event === "signOut") redirectToHome();
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

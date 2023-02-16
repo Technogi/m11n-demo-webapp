@@ -16,6 +16,7 @@ const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
 export default withAuthenticator(PrivateLayout, {
   variation: "default",
+  hideSignUp: true,
   components: {
     Footer() {
       return (

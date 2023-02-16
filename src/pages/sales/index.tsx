@@ -80,17 +80,17 @@ const SalesPage: NextPage = () => {
       align: "center",
       headerAlign: "center",
       valueGetter(params) {
-        return params.row.name;
+        return { name: params.row.name, id: params.row.id };
       },
-      renderCell({ value }) {
+      renderCell({ value: { name, id } }) {
         return (
           <>
-            <Tooltip title={`Click to see "${value}" sales forecast`}>
+            <Tooltip title={`Click to see "${name}" sales forecast`}>
               <IconButton
                 color="primary"
                 onClick={() => {
                   setShowForecast(true);
-                  setForecastId(value);
+                  setForecastId(id);
                 }}
               >
                 <Analytics />
