@@ -10,7 +10,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const SignOutPage = () => {
+  const { authStatus } = useAuthenticator((context) => [context.user]);
   const router = useRouter();
+
   const redirectToHome = () => {
     setTimeout(() => {
       router.push("/app");
@@ -18,8 +20,14 @@ const SignOutPage = () => {
   };
 
   useEffect(() => {
+    if (authStatus !== "authenticated") redirectToHome();
+
     Auth.signOut({ global: true }).then((res) => {
       redirectToHome();
+    });
+
+    return Hub.listen("auth", (data) => {
+      if (data?.payload?.event === "signOut") redirectToHome();
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

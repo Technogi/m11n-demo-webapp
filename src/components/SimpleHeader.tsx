@@ -25,7 +25,7 @@ const SimpleHeader: FC = () => (
           <UILink color="inherit">M11n</UILink>
         </Link>
       </Typography>
-      <Link href="/">
+      <Link href="https://www.technogi.com.mx">
         <img alt="technogi" src="/technogi-teal-light.png" width={160} />
       </Link>
     </Container>
