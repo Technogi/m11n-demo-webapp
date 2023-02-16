@@ -4,15 +4,13 @@ import {
   useAuthenticator,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { Hub } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const SignOutPage = () => {
-  const { signOut, authStatus } = useAuthenticator((context) => [context.user]);
   const router = useRouter();
-
   const redirectToHome = () => {
     setTimeout(() => {
       router.push("/app");
@@ -20,11 +18,8 @@ const SignOutPage = () => {
   };
 
   useEffect(() => {
-    signOut();
-
-    if (authStatus !== "authenticated") redirectToHome();
-    return Hub.listen("auth", (data) => {
-      if (data?.payload?.event === "signOut") redirectToHome();
+    Auth.signOut({ global: true }).then((res) => {
+      redirectToHome();
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

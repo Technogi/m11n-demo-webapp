@@ -101,6 +101,7 @@ function ResponsiveAppBar() {
             </Link>
             <Link href="/sales" passHref>
               <UILink
+                href="/sales"
                 color={teal[50]}
                 fontWeight={900}
                 underline="hover"
