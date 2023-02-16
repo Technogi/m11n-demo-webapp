@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { Analytics } from "@mui/icons-material";
-import { Button, Link as UILink } from "@mui/material";
+import { Link as UILink } from "@mui/material";
 import Head from "next/head";
 import PrivateLayout from "@/components/PrivateLayout";
 
