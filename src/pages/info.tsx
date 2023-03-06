@@ -43,6 +43,13 @@ const InfoPage: NextPage = () => {
           }}
         >
           <Container maxWidth="md">
+            <iframe
+              src="https://docs.google.com/presentation/d/e/2PACX-1vR5yEASC3pJPaFN7iTTIQ8jb-QQ7pBkwkcGHvrbJ5IAptiwUfM8opc6EyLANuaSDw/embed?start=false&loop=false&delayms=3000"
+              frameBorder="0"
+              width="1280"
+              height="749"
+              allowFullScreen
+            ></iframe>
             <Typography
               component="h2"
               variant="h4"

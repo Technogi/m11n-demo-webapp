@@ -1,43 +1,33 @@
-import { Box, Link, Typography } from "@mui/material";
 import config from "next/config";
+import Link from "next/link";
 
 const { publicRuntimeConfig } = config() || {};
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="primary.contrastText" align="center">
+    <div className="text-center text-slate-400 pt-4">
       {"Copyright © "}
       <Link color="inherit" href="https://technogi.com.mx/">
         Technogi
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
-    </Typography>
+    </div>
   );
 }
 export default function Footer() {
   return (
-    <Box
-      sx={{ bgcolor: "primary.main", p: 3, color: "primary.contrastText" }}
-      component="footer"
-    >
-      <Typography
-        variant="subtitle1"
-        align="center"
-        color="primary.contrastText"
-        component="p"
-      >
+    <footer className="bg-slate-900">
+      <div className="bg-slate-700 py-4 text-slate-200 text-center">
         Keeping IT Simple since 2012
-      </Typography>
-      <Copyright />
-      <Typography
-        sx={{
-          textAlign: "right",
-          fontSize: 12,
-        }}
-      >
+      </div>
+      <div>
+        <Copyright />
+      </div>
+      <div className="p-4 text-slate-400 text-xs text-right">
+        {" "}
         v{publicRuntimeConfig?.version}
-      </Typography>
-    </Box>
+      </div>
+    </footer>
   );
 }

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root,
 [data-amplify-theme] {
   ---amplify-colors-background-primary: var(--amplify-colors-neutral-90);
@@ -9,4 +13,8 @@
   --amplify-components-tabs-item-hover-color: #4db6ac;
   --amplify-components-authenticator-router-border-color: hsl(0deg 0% 83%);
   --amplify-components-authenticator-router-border-width: 1px;
+}
+
+.amplify-button {
+  text-transform: uppercase;
 }

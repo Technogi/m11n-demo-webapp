@@ -1,10 +1,27 @@
 import { FC, ReactNode } from "react";
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import Head from "next/head";
-import { withAuthenticator } from "@aws-amplify/ui-react";
+import {
+  Authenticator,
+  CheckboxField,
+  SelectField,
+  TextField,
+  useAuthenticator,
+  withAuthenticator,
+} from "@aws-amplify/ui-react";
 import { Analytics } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import Footer from "./Footer";
+import Link from "next/link";
+import RegistrationLink from "./login/RegistrationLink";
+import { I18n } from "aws-amplify";
+
+I18n.putVocabularies({
+  en: {
+    Username: "Email",
+    "Enter your Username": "Enter your Email (this will be your username)",
+  },
+});
 
 const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -17,31 +34,56 @@ const PrivateLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
 export default withAuthenticator(PrivateLayout, {
   variation: "default",
-  hideSignUp: true,
+  hideSignUp: false,
   components: {
+    SignUp: {
+      FormFields() {
+        const { validationErrors } = useAuthenticator();
+
+        return (
+          <>
+            <TextField
+              label="Company Name"
+              placeholder="Enter the name of your company"
+              required
+              errorMessage={validationErrors.company as string}
+              hasError={!!validationErrors.company}
+            />
+            <SelectField
+              label="Your role"
+              options={[
+                "Developer",
+                "Manager",
+                "Project Manager",
+                "Executive",
+                "Other",
+              ]}
+            />
+            <Authenticator.SignUp.FormFields />
+            <CheckboxField
+              errorMessage={validationErrors.acknowledgement as string}
+              hasError={!!validationErrors.acknowledgement}
+              name="acknowledgement"
+              value="yes"
+              label="I agree with the Terms & Conditions"
+            />
+          </>
+        );
+      },
+    },
     Footer() {
       return (
         <>
           <div
             style={{
-              marginTop: "2em",
-              textAlign: "center",
-              backgroundColor: "#ccc",
-              fontSize: "1.1em",
-              borderRadius: "10px",
-              padding: "0.3em",
-              color: "#222",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "100vw",
             }}
           >
-            Welcome to Technogi&apos;s M11N Demo WebApp
+            <Footer />
           </div>
-          <div
-            style={{ marginTop: "2rem", color: "#222", textAlign: "center" }}
-          >
-            This application is optimized to run on Desktops
-          </div>
-          <br />
-          <Footer />
         </>
       );
     },

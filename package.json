@@ -1,6 +1,6 @@
 {
   "name": "@technogi/m11-demo-webapp",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -23,12 +23,15 @@
     "@types/react-dom": "18.0.10",
     "aws-amplify": "^5.0.14",
     "aws-sdk": "^2.1314.0",
+    "classnames": "^2.3.2",
     "emotion": "^11.0.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.1",
+    "react-icons": "^4.8.0",
     "react-query": "^3.39.3",
     "recharts": "^2.4.1",
     "swr": "^2.0.3",
@@ -41,5 +44,10 @@
   "author": {
     "email": "carlos@technogi.com.mx",
     "name": "Carlos"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7"
   }
 }
